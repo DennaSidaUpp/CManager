@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CManager.Presentation.ConsoleApp;
+
+internal class Service(Repositry repositry)
+{
+    public Customer CreateCustomer(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postalCode, string city)
+    {
+        var list = repositry.GetCustomers();
+        var customer = new Customer(Guid.NewGuid(), firstName, lastName, email, phoneNumber, new Address(streetAddress, postalCode, city));
+        list.Add(customer);
+        repositry.Save(list);
+        return customer;
+    }
+
+    public List<Customer> GetCustomers() => repositry.GetCustomers();
+
+    public Customer? GetCustomer(Guid id)
+    {
+        var list = repositry.GetCustomers();
+        var foundCustomer = list.FirstOrDefault(c => c.Id == id);
+        return foundCustomer;
+    }
+
+    public bool RemoveCustomer(Guid id)
+    {
+        var list = repositry.GetCustomers();
+        var customer = list.FirstOrDefault(c => c.Id == id);
+        if (customer != null)
+        {
+            list.Remove(customer);
+            repositry.Save(list);
+            return true;
+        }
+
+        return false;
+    }
+}
