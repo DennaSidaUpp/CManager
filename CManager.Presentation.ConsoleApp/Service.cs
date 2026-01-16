@@ -17,17 +17,17 @@ internal class Service(Repositry repositry)
 
     public List<Customer> GetCustomers() => repositry.GetCustomers();
 
-    public Customer? GetCustomer(Guid id)
+    public Customer? GetCustomer(string email)
     {
         var list = repositry.GetCustomers();
-        var foundCustomer = list.FirstOrDefault(c => c.Id == id);
+        var foundCustomer = list.FirstOrDefault(c => c.Email == email);
         return foundCustomer;
     }
 
-    public bool RemoveCustomer(Guid id)
+    public bool RemoveCustomer(string email)
     {
         var list = repositry.GetCustomers();
-        var customer = list.FirstOrDefault(c => c.Id == id);
+        var customer = list.FirstOrDefault(c => c.Email == email);
         if (customer != null)
         {
             list.Remove(customer);
