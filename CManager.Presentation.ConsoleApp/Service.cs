@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CManager.Presentation.ConsoleApp;
 
-internal interface IService
+public interface IService
 {
     Customer CreateCustomer(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postalCode, string city);
     Customer? GetCustomer(string email);
@@ -12,7 +12,7 @@ internal interface IService
     bool RemoveCustomer(string email);
 }
 
-internal class Service(IRepositry repositry) : IService
+public class Service(IRepositry repositry) : IService
 {
     public Customer CreateCustomer(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string postalCode, string city)
     {

@@ -67,6 +67,7 @@ internal class Controller (IService service)
 
         var customer = service.CreateCustomer(firstName, lastName, email, phoneNumber, streetAddress, postalCode, city);
 
+        Console.WriteLine();
         Console.WriteLine($"Customer: {firstName} {lastName} has been saved. Id = {customer.Id}");
 
     }
@@ -85,10 +86,15 @@ internal class Controller (IService service)
         {
             Console.WriteLine($"{customer.FirstName} {customer.LastName}, {customer.Email}");
         }
+
+        Console.WriteLine();
+        Console.WriteLine("Press any key to continue");
     }
 
     public void DeleteCustomer()
     {
+        Console.Clear();
+        Console.WriteLine("Delete a customer.");
         var email = Input("Email");
         var deleted = service.RemoveCustomer(email);
 
@@ -103,6 +109,8 @@ internal class Controller (IService service)
 
     public void ViewCustomer()
     {
+        Console.Clear();
+        Console.WriteLine("View a specific customer.");
         var email = Input("Email");
         var customer = service.GetCustomer(email);
 
@@ -112,7 +120,14 @@ internal class Controller (IService service)
         }
         else
         {
-            Console.WriteLine($"{customer.FirstName} {customer.LastName}, {customer.Email} {customer.PhoneNumber} {customer.Address}");
+            Console.WriteLine();
+            Console.WriteLine($"Id: {customer.Id}");
+            Console.WriteLine($"Name: {customer.FirstName} {customer.LastName}");
+            Console.WriteLine($"Email: {customer.Email}");
+            Console.WriteLine($"Phone number: {customer.PhoneNumber}");
+            Console.WriteLine($"Address: {customer.Address.StreetAddress}, {customer.Address.PostalCode}, {customer.Address.City}");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue");
         }
     }
 }
