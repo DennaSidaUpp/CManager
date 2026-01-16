@@ -6,25 +6,18 @@ using System.Text.Json.Serialization;
 
 namespace CManager.Presentation.ConsoleApp;
 
-public class Repositry
+public interface IRepositry
+{
+    List<Customer> GetCustomers();
+    void Save(List<Customer> customers);
+}
+
+public class Repositry : IRepositry
 {
     private const string Filename = "Data.json";
 
     public void Save(List<Customer> customers)
     {
-        //if (!File.Exists(Filename))
-        //{
-        //    File.Create(Filename).Close();
-        //}
-
-        //var content = File.ReadAllText(Filename, Encoding.UTF8);                // Öppna or läs innehåll i filen some text
-        //var dataList = string.IsNullOrEmpty(content)                    // Är innehållet i filen tom?
-        //    ? new List<Customer>()                                      // Ja. Skapa en ny tom list
-        //    : JsonSerializer.Deserialize<List<Customer>>(content);      // Nej, Gör om texten till en lista av kunder
-
-        //dataList.Add(customer);                                                 // Lägg till den nya kunden
-
-
         var json = JsonSerializer.Serialize<List<Customer>>(customers);           // Gör om listan till json text
         File.WriteAllText(Filename, json);                                   // Skriv texten till filen
     }

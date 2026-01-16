@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CManager.Presentation.ConsoleApp;
 
-internal class Controller (Service service)
+internal class Controller (IService service)
 {
     public void ShowMenu()
     {
